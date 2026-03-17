@@ -15,21 +15,22 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const ProblemFilter = () => {
+const ProblemFilter = ({ difficulty, setDifficulty }) => {
   //dummy replace by state later
   const completion = 10;
 
-  const [difficulty, setDifficulty] = useState("All");
-
   const [open, setOpen] = useState(false);
 
+  const difficultyStyle = {
+    All: "text-neutral-500 dark:text-neutral-400",
+    Basic: "text-sky-600 dark:text-sky-400",
+    Easy: "text-green-600 dark:text-green-400",
+    Medium: "text-yellow-600 dark:text-yellow-400",
+    Hard: "text-red-600 dark:text-red-400",
+  };
+
   return (
-    <motion.div
-      initial={{ filter: "blur(10px)" }}
-      animate={{ filter: "blur(0px)" }}
-      transition={{ duration: 0.3, ease: easeInOut }}
-      className="flex flex-col gap-4 dark:selection:bg-cyan-400/20"
-    >
+    <motion.div className="flex flex-col gap-4 dark:selection:bg-cyan-400/20">
       <div className="text-[2.6rem] font-mono font-bold dark:selection:bg-cyan-400/20">
         Problems
       </div>
@@ -59,7 +60,9 @@ const ProblemFilter = () => {
               variant="outline"
               className="focus-visible:ring-0 focus-visible:ring-offset-0 w-40 flex justify-between items-center cursor-pointer"
             >
-              <span className="dark:text-neutral-300 ">{difficulty}</span>
+              <span className={cn(difficultyStyle[difficulty])}>
+                {difficulty}
+              </span>
 
               <motion.span
                 className="dark:text-neutral-400"
@@ -78,31 +81,43 @@ const ProblemFilter = () => {
                 onValueChange={setDifficulty}
               >
                 <DropdownMenuRadioItem
-                  className={"hover:bg-neutral-400/10 text-neutral-400"}
+                  className={cn(
+                    "hover:bg-neutral-400/10 ",
+                    difficultyStyle["All"],
+                  )}
                   value="All"
                 >
                   All
                 </DropdownMenuRadioItem>
                 <DropdownMenuRadioItem
-                  className={"hover:bg-sky-400/10 text-sky-400"}
+                  className={cn(
+                    "hover:bg-sky-400/10 ",
+                    difficultyStyle["Basic"],
+                  )}
                   value="Basic"
                 >
                   Basic
                 </DropdownMenuRadioItem>
                 <DropdownMenuRadioItem
-                  className={"hover:bg-green-400/10 text-green-400"}
+                  className={cn(
+                    "hover:bg-green-400/10 ",
+                    difficultyStyle["Easy"],
+                  )}
                   value="Easy"
                 >
                   Easy
                 </DropdownMenuRadioItem>
                 <DropdownMenuRadioItem
-                  className={"hover:bg-yellow-400/10 text-yellow-400"}
+                  className={cn(
+                    "hover:bg-yellow-400/10 ",
+                    difficultyStyle["Medium"],
+                  )}
                   value="Medium"
                 >
                   Medium
                 </DropdownMenuRadioItem>
                 <DropdownMenuRadioItem
-                  className={"hover:bg-red-400/10 text-red-400"}
+                  className={cn("hover:bg-red-400/10", difficultyStyle["Hard"])}
                   value="Hard"
                 >
                   Hard

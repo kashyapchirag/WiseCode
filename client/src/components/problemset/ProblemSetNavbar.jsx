@@ -2,12 +2,7 @@ import { easeInOut, motion } from "motion/react";
 
 const ProblemSetNavbar = () => {
   return (
-    <motion.nav
-      initial={{ filter: "blur(10px)" }}
-      animate={{ filter: "blur(0px)" }}
-      transition={{ duration: 0.3, ease: easeInOut }}
-      className="flex justify-between items-center py-10 dark:selection:bg-cyan-400/20"
-    >
+    <motion.nav className="flex justify-between items-center py-10 dark:selection:bg-cyan-400/20">
       <span
         onClick={() => {
           document.documentElement.classList.toggle("dark");
