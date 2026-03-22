@@ -42,7 +42,7 @@ const problemSchema = new mongoose.Schema({
     testCases: [
         {
             input: String,
-            expectedOutput: String,
+            expectedOutput: mongoose.Schema.Types.Mixed,
         }
     ],
     starterCode: {

@@ -81,9 +81,11 @@ export const submitCode = async (req, res) => {
                     input: tc.input,
                     expectedOutput: tc.expectedOutput,
                     actualOutput,
-                    passed: tc.expectedOutput === actualOutput,
+                    passed: Array.isArray(tc.expectedOutput) ? tc.expectedOutput.includes(actualOutput) : tc.expectedOutput === actualOutput,
                     time: data.time,
-                    status: data.status.description
+                    memory: data.memory,
+                    status: data.status.description,
+                    compileOutput: data.compile_output,
                 }
             })
         )

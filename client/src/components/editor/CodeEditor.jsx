@@ -167,7 +167,7 @@ const CodeEditor = ({
       <div className="bottom flex justify-end gap-2 bg-transparent px-1 py-1 w-full h-10 ">
         <button
           onClick={onRun}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono rounded-lg border border-neutral-300 dark:border-neutral-700 text-neutral-600 dark:text-neutral-300 hover:border-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 dark:hover:border-neutral-500 hover:text-black dark:hover:text-white transition-all cursor-pointer"
+          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono rounded-lg border border-neutral-300 dark:border-neutral-700 text-neutral-600 dark:text-neutral-300 hover:border-neutral-40 hover:bg-surface-light dark:hover:bg-neutral-800 dark:hover:border-neutral-500 hover:text-black dark:hover:text-white transition-all cursor-pointer"
         >
           <Play size={12} />
           Run

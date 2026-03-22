@@ -42,71 +42,173 @@ const ProblemDetail = () => {
 
   const onRun = async () => {
     setLoading(true);
-    setTimeout(() => {
-      setResults([
-        {
-          input: "[2,7,11,15]\n9",
-          expectedOutput: "[0,1]",
-          actualOutput: "[0,1]",
-          passed: true,
-          status: "Accepted",
-          stderr: null,
-          compileOutput: null,
-        },
-        {
-          input: "[3,2,4]\n6",
-          expectedOutput: "[1,2]",
-          actualOutput: "[2,1]", // wrong on purpose to test failed case
-          passed: true,
-          status: "Wrong Answer",
-          stderr: null,
-          compileOutput: null,
-        },
-      ]);
+    // setTimeout(() => {
+    //   setResults([
+    //     {
+    //       input: "[2,7,11,15]\n9",
+    //       expectedOutput: "[0,1]",
+    //       actualOutput: "[0,1]",
+    //       passed: true,
+    //       status: "Accepted",
+    //       stderr: null,
+    //       compileOutput: null,
+    //     },
+    //     {
+    //       input: "[3,2,4]\n6",
+    //       expectedOutput: "[1,2]",
+    //       actualOutput: "[2,1]", // wrong on purpose to test failed case
+    //       passed: false,
+    //       status: "Wrong Answer",
+    //       stderr: null,
+    //       compileOutput: null,
+    //     },
+    //   ]);
+    //   setLoading(false);
+    // }, 2000);
+    try {
+      const res = await axios.post("/api/run", {
+        language,
+        code,
+        slug,
+      });
       setLoading(false);
-    }, 2000);
-    // const res = await axios.post("/api/run", {
-    //   language,
-    //   code,
-    //   slug,
-    // });
-    // setLoading(false);
-    // console.log(res.data.results);
-    // setResults(res.data.results);
+      console.log(res.data.results);
+      setResults(res.data.results);
+    } catch (err) {
+      console.log("error---", err);
+    }
   };
   const onSubmit = async () => {
     setLoading(true);
     setPanelView("Submit");
-    setTimeout(() => {
-      setResults([
-        {
-          input: "[2,7,11,15]\n9",
-          expectedOutput: "[0,1]",
-          actualOutput: "[0,1]",
-          passed: true,
-          status: "Accepted",
-          stderr: null,
-          compileOutput: null,
-        },
-        {
-          input: "[3,2,4]\n6",
-          expectedOutput: "[1,2]",
-          actualOutput: "[2,1]", // wrong on purpose to test failed case
-          passed: false,
-          status: "Wrong Answer",
-          stderr: null,
-          compileOutput: null,
-        },
-      ]);
-      setLoading(false);
-    }, 2000);
+    // setTimeout(() => {
+    //   setResults([
+    //     {
+    //       input: "[2,7,11,15]\n9",
+    //       expectedOutput: "[0,1]",
+    //       actualOutput: "[0,1]",
+    //       passed: true,
+    //       status: "Accepted",
+    //       stderr: null,
+    //       compileOutput: null,
+    //       time: "0.043",
+    //       memory: 9216,
+    //     },
+    //     {
+    //       input: "[3,2,4]\n6",
+    //       expectedOutput: "[1,2]",
+    //       actualOutput: "[1,2]",
+    //       passed: true,
+    //       status: "Accepted",
+    //       stderr: null,
+    //       compileOutput: null,
+    //       time: "0.038",
+    //       memory: 9100,
+    //     },
+    //     {
+    //       input: "[3,3]\n6",
+    //       expectedOutput: "[0,1]",
+    //       actualOutput: "[1,0]", // wrong order
+    //       passed: false,
+    //       status: "Wrong Answer",
+    //       stderr: null,
+    //       compileOutput: null,
+    //       time: "0.041",
+    //       memory: 9200,
+    //     },
+    //     {
+    //       input: "[1,2,3,4,5]\n9",
+    //       expectedOutput: "[3,4]",
+    //       actualOutput: "[3,4]",
+    //       passed: true,
+    //       status: "Accepted",
+    //       stderr: null,
+    //       compileOutput: null,
+    //       time: "0.045",
+    //       memory: 9300,
+    //     },
+    //     {
+    //       input: "[0,4,3,0]\n0",
+    //       expectedOutput: "[0,3]",
+    //       actualOutput: "[0,3]",
+    //       passed: true,
+    //       status: "Accepted",
+    //       stderr: null,
+    //       compileOutput: null,
+    //       time: "0.039",
+    //       memory: 9150,
+    //     },
+    //     {
+    //       input: "[-1,-2,-3,-4,-5]\n-8",
+    //       expectedOutput: "[2,4]",
+    //       actualOutput: null, // crashed
+    //       passed: false,
+    //       status: "Runtime Error (NZEC)",
+    //       stderr: "TypeError: Cannot read properties of undefined",
+    //       compileOutput: null,
+    //       time: null,
+    //       memory: null,
+    //     },
+    //     {
+    //       input: "[1,5,3,7]\n8",
+    //       expectedOutput: "[1,3]",
+    //       actualOutput: "[1,3]",
+    //       passed: true,
+    //       status: "Accepted",
+    //       stderr: null,
+    //       compileOutput: null,
+    //       time: "0.051",
+    //       memory: 9400,
+    //     },
+    //     {
+    //       input: "[2,5,5,11]\n10",
+    //       expectedOutput: "[1,2]",
+    //       actualOutput: "[1,2]",
+    //       passed: true,
+    //       status: "Accepted",
+    //       stderr: null,
+    //       compileOutput: null,
+    //       time: "0.047",
+    //       memory: 9250,
+    //     },
+    //     {
+    //       input: "[1,3,4,2]\n6",
+    //       expectedOutput: "[2,3]",
+    //       actualOutput: "[3,2]", // wrong order
+    //       passed: false,
+    //       status: "Wrong Answer",
+    //       stderr: null,
+    //       compileOutput: null,
+    //       time: "0.044",
+    //       memory: 9180,
+    //     },
+    //     {
+    //       input: "[0,1]\n1",
+    //       expectedOutput: "[0,1]",
+    //       actualOutput: "[0,1]",
+    //       passed: true,
+    //       status: "Accepted",
+    //       stderr: null,
+    //       compileOutput: null,
+    //       time: "0.036",
+    //       memory: 9050,
+    //     },
+    //   ]);
+    //   setLoading(false);
+    // }, 2000);
 
-    // const res = await axios.post("/api/submit", {
-    //   language,
-    //   code,
-    //   slug,
-    // });
-    // console.log(res.data);
+    try {
+      const res = await axios.post("/api/submit", {
+        language,
+        code,
+        slug,
+      });
+      console.log(res.data.results);
+      setResults(res.data.results);
+      setLoading(false);
+    } catch (err) {
+      console.log("error while submitting the code");
+    }
   };
 
   return (
@@ -154,7 +256,7 @@ const ProblemDetail = () => {
               {problem?.examples.map((ex, idx) => (
                 <div key={idx} className="flex flex-col">
                   <span className="text-sm font-bold">Example {idx + 1}:</span>
-                  <div className="mt-2 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-3 text-sm flex flex-col gap-2">
+                  <div className="mt-2 bg-surface-light dark:bg-neutral-800 rounded-lg p-3 text-sm flex flex-col gap-2">
                     <div className="">
                       <span className="text-neutral-500 dark:text-neutral-400">
                         Input:{" "}

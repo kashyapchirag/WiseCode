@@ -32,7 +32,7 @@ const problems = [
             { input: "[1,2,3,4,5]\n9", expectedOutput: "[3,4]" },
             { input: "[0,4,3,0]\n0", expectedOutput: "[0,3]" },
             { input: "[-1,-2,-3,-4,-5]\n-8", expectedOutput: "[2,4]" },
-            { input: "[1,5,3,7]\n8", expectedOutput: "[1,3]" },
+            { input: "[1,5,3,7]\n8", expectedOutput: ["[0,3]", "[1,2]"] },
             { input: "[2,5,5,11]\n10", expectedOutput: "[1,2]" },
             { input: "[1,3,4,2]\n6", expectedOutput: "[2,3]" },
             { input: "[0,1]\n1", expectedOutput: "[0,1]" },

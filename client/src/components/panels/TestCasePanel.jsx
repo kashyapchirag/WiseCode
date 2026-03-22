@@ -8,7 +8,7 @@ const TestCasePanel = ({ results, loading }) => {
   return (
     <div className="flex flex-col font-mono h-full">
       {/* nav */}
-      <div className="bg-neutral-100 h-10 flex gap-2 items-center dark:bg-neutral-800 w-full py-2.5 px-4 rounded-t-xl">
+      <div className="bg-surface-light h-10 flex gap-2 items-center dark:bg-neutral-800 w-full py-2.5 px-4 rounded-t-xl">
         <span className="text-neutral-500 dark:text-neutral-300">Output</span>
         {loading && (
           <span className="text-neutral-500 dark:text-neutral-300 animate-spin">
@@ -67,7 +67,7 @@ const TestCasePanel = ({ results, loading }) => {
                 className={cn(
                   "px-3 py-1 rounded-lg border transition-all cursor-pointer",
                   activeTab === idx
-                    ? "border-neutral-400 dark:border-neutral-500 bg-neutral-100 dark:bg-neutral-800"
+                    ? "border-neutral-400 dark:border-neutral-500 bg-surface-light dark:bg-neutral-800"
                     : "border-neutral-200 dark:border-neutral-700 text-neutral-400",
                   result.passed ? " text-green-500" : " text-red-500",
                 )}
@@ -82,13 +82,13 @@ const TestCasePanel = ({ results, loading }) => {
           <div className="output mt-4 flex flex-col gap-4 pb-8">
             <div className="input flex flex-col gap-2">
               <span className="text-neutral-400">Input</span>
-              <div className="box bg-neutral-100 dark:bg-neutral-800 rounded-lg px-3 py-2 whitespace-pre">
+              <div className="box bg-surface-light dark:bg-neutral-800 rounded-lg px-3 py-2 whitespace-pre">
                 <div>{results[activeTab].input}</div>
               </div>
             </div>
             <div className="input flex flex-col gap-2">
               <span className="text-neutral-400">Expected</span>
-              <div className="box bg-neutral-100 dark:bg-neutral-800 rounded-lg px-3 py-3 whitespace-pre">
+              <div className="box bg-surface-light dark:bg-neutral-800 rounded-lg px-3 py-3 whitespace-pre">
                 <div>{results[activeTab].expectedOutput}</div>
               </div>
             </div>
@@ -96,7 +96,7 @@ const TestCasePanel = ({ results, loading }) => {
               <span className="text-neutral-400">Output</span>
               <div
                 className={cn(
-                  `box bg-neutral-100 min-h-10 dark:bg-neutral-800 rounded-lg px-3 py-3 whitespace-pre`,
+                  `box bg-surface-light min-h-10 dark:bg-neutral-800 rounded-lg px-3 py-3 whitespace-pre`,
                   results[activeTab].passed
                     ? "bg-green-500/10 text-green-500"
                     : "bg-red-500/10 text-red-500",
