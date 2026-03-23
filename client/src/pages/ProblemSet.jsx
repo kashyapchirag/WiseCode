@@ -16,7 +16,7 @@ const ProblemSet = () => {
 
   const [loading, setLoading] = useState(true);
 
-  const fetch = async () => {
+  const fetchProblems = async () => {
     try {
       const data = await getProblems();
       setProblems(data);
@@ -28,7 +28,7 @@ const ProblemSet = () => {
   };
 
   useEffect(() => {
-    fetch();
+    fetchProblems();
   }, []);
 
   return (
