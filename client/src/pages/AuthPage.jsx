@@ -70,7 +70,7 @@ const AuthPage = () => {
       }
       if (!form.password) {
         newErrors.password = "Password is required";
-      } else if (form.password.length < 8) {
+      } else if (form.password.length < 2) {
         newErrors.password = "Password must be at least 8 characters";
       }
       setErrors(newErrors);
@@ -181,7 +181,7 @@ const AuthPage = () => {
 
       if (!form.password) {
         newErrors.password = "Password is required";
-      } else if (form.password.length < 8) {
+      } else if (form.password.length < 2) {
         newErrors.password = "Password must be at least 8 characters";
       }
 

@@ -22,18 +22,6 @@ const ProblemDetail = () => {
   const { isLoggedIn, setIsLoggedIn } = useOutletContext();
 
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        await axios.get("/api/me", { withCredentials: true });
-        setIsLoggedIn(true);
-      } catch {
-        setIsLoggedIn(false);
-      }
-    };
-    checkAuth();
-  }, []);
-
-  useEffect(() => {
     const getProblemDetail = async () => {
       const data = await getProblemBySlug(slug);
       setProblem(data);

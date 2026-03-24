@@ -1,12 +1,13 @@
 import { motion } from "motion/react";
 import { toast } from "sonner";
+import { LogIn } from "lucide-react";
 import { LogOut } from "lucide-react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import axios from "axios";
 
 const ProblemSetNavbar = () => {
   const navigate = useNavigate();
-  const { setIsLoggedIn } = useOutletContext();
+  const { isLoggedIn, setIsLoggedIn } = useOutletContext();
   const handleLogOut = async () => {
     try {
       const res = await axios.post(
@@ -36,16 +37,35 @@ const ProblemSetNavbar = () => {
           <span className="dot animate-pulse w-2 h-2 bg-green-500 rounded-full"></span>
           <span className="text-xs text-neutral-500">PLATFORM IS LIVE</span>
         </div>
-        <button
-          onClick={handleLogOut}
-          className="group flex items-center gap-2 px-4 py-2 rounded-lg border border-red-500/20 bg-red-500/5 text-red-400 text-sm font-medium hover:bg-red-500/10 hover:border-red-500/40 transition-all duration-200 cursor-pointer"
-        >
-          <LogOut
-            size={16}
-            className="transition-transform group-hover:translate-x-0.5"
-          />
-          Logout
-        </button>
+        {isLoggedIn ? (
+          <button
+            onClick={handleLogOut}
+            className="group flex items-center gap-2 px-4 py-2 rounded-lg border border-red-500/20 bg-red-500/5 text-red-400 text-sm font-medium hover:bg-red-500/10 hover:border-red-500/40 transition-all duration-200 cursor-pointer"
+          >
+            <LogOut
+              size={16}
+              className="transition-transform group-hover:translate-x-0.5"
+            />
+            Logout
+          </button>
+        ) : (
+          <button
+            onClick={() => {
+              navigate("/login");
+            }}
+            className="group flex items-center gap-2 px-4 py-2 rounded-lg 
+  border border-violet-500/20 bg-violet-500/5 
+  text-violet-400 text-sm font-medium 
+  hover:bg-violet-500/10 hover:border-violet-500/40 
+  transition-all duration-200 cursor-pointer"
+          >
+            <LogIn
+              size={16}
+              className="transition-transform group-hover:-translate-x-0.5"
+            />
+            Login
+          </button>
+        )}
       </div>
     </motion.nav>
   );
