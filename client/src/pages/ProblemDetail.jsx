@@ -1,6 +1,6 @@
 import { getProblemBySlug } from "@/api/problemApi";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useOutletContext, useParams } from "react-router-dom";
 import { Group, Panel, Separator } from "react-resizable-panels";
 import { cn } from "@/utils/cn";
 import CodeEditor from "@/components/editor/CodeEditor";
@@ -8,6 +8,7 @@ import axios from "axios";
 import TestCasePanel from "@/components/panels/TestCasePanel";
 import SubmitPanel from "@/components/panels/SubmitPanel";
 import { Skeleton } from "@/components/ui/skeleton";
+import { toast } from "sonner";
 
 const ProblemDetail = () => {
   const { slug } = useParams();
@@ -18,11 +19,26 @@ const ProblemDetail = () => {
 
   const [code, setCode] = useState("");
 
+  const { isLoggedIn, setIsLoggedIn } = useOutletContext();
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        await axios.get("/api/me", { withCredentials: true });
+        setIsLoggedIn(true);
+      } catch {
+        setIsLoggedIn(false);
+      }
+    };
+    checkAuth();
+  }, []);
+
   useEffect(() => {
     const getProblemDetail = async () => {
       const data = await getProblemBySlug(slug);
       setProblem(data);
     };
+
     getProblemDetail();
   }, [slug]);
 
@@ -68,16 +84,20 @@ const ProblemDetail = () => {
     //   setLoading(false);
     // }, 2000);
     try {
-      const res = await axios.post("/api/run", {
-        language,
-        code,
-        slug,
-      });
+      const res = await axios.post(
+        "/api/run",
+        {
+          language,
+          code,
+          slug,
+        },
+        { withCredentials: true },
+      );
       setLoading(false);
       console.log(res.data.results);
       setResults(res.data.results);
     } catch (err) {
-      console.log("error---", err);
+      toast.error(err.response?.data?.message || "Something went wrong");
     }
   };
   const onSubmit = async () => {
@@ -200,16 +220,20 @@ const ProblemDetail = () => {
     // }, 2000);
 
     try {
-      const res = await axios.post("/api/submit", {
-        language,
-        code,
-        slug,
-      });
+      const res = await axios.post(
+        "/api/submit",
+        {
+          language,
+          code,
+          slug,
+        },
+        { withCredentials: true },
+      );
       console.log(res.data.results);
       setResults(res.data.results);
       setLoading(false);
     } catch (err) {
-      console.log("error while submitting the code");
+      toast.error(err.response?.data?.message || "Something went wrong");
     }
   };
 
@@ -382,6 +406,7 @@ const ProblemDetail = () => {
                   setLanguage={setLanguage}
                   code={code}
                   setCode={setCode}
+                  isLoggedIn={isLoggedIn}
                 />
               </div>
             </Panel>

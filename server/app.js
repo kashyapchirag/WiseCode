@@ -3,6 +3,9 @@ import express from 'express'
 import cors from 'cors'
 import dbConnection from './config/db.js';
 import problemRoutes from './routes/problemRoutes.js'
+import authRoutes from './routes/authRoutes.js'
+import cookieParser from "cookie-parser";
+
 
 const app = express();
 
@@ -13,12 +16,20 @@ dotenv.config();
 dbConnection();
 
 // cors setup
-app.use(cors())
+app.use(
+    cors({
+        origin: "http://localhost:5173",
+        credentials: true,
+    })
+);
+
+app.use(cookieParser());
 
 // global middleware setup
 app.use(express.json())
 
 //getting routes
 app.use('/api', problemRoutes)
+app.use('/api', authRoutes)
 
 export default app;

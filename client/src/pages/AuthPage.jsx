@@ -2,9 +2,8 @@ import SoftAurora from "@/components/ui/SoftAurora";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/utils/cn";
-import { div } from "three/src/nodes/math/OperatorNode";
-import { placeholder } from "@uiw/react-codemirror";
-import { Loader2 } from "lucide-react";
+import axios from "axios";
+import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 
 const AuthPage = () => {
@@ -64,7 +63,7 @@ const AuthPage = () => {
       }));
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
       const newErrors = {};
       if (!form.email) {
         newErrors.email = "Email is required";
@@ -78,9 +77,21 @@ const AuthPage = () => {
       if (Object.keys(newErrors).length > 0) return;
 
       setLoading(true);
-      setTimeout(() => {
+      try {
+        const res = await axios.post(
+          "/api/signin",
+          { email: form.email, password: form.password },
+          { withCredentials: true },
+        );
+        console.log(res.data.token);
+
+        navigate("/problems");
+        toast.success(res.data.message);
+      } catch (err) {
+        toast.error(err.response?.data?.message || "Something went wrong");
+      } finally {
         setLoading(false);
-      }, 3000);
+      }
     };
     return (
       <div className="w-full flex flex-col gap-4">
@@ -161,7 +172,7 @@ const AuthPage = () => {
       }));
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
       let newErrors = {};
 
       if (!form.email) {
@@ -185,9 +196,19 @@ const AuthPage = () => {
       if (Object.keys(newErrors).length > 0) return;
 
       setLoading(true);
-      setTimeout(() => {
+
+      try {
+        const res = await axios.post("/api/signup", {
+          email: form.email,
+          password: form.password,
+        });
+        toast.success(res.data.message);
+        setCurrentTab("Sign in");
+      } catch (err) {
+        toast.error(err.response?.data?.message || "Something went wrong");
+      } finally {
         setLoading(false);
-      }, 3000);
+      }
     };
     return (
       <div className="w-full flex flex-col gap-4">

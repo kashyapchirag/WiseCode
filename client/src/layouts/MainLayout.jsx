@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 
 const MainLayout = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     <div className="bg-[#fbf9f4] dark:bg-neutral-950">
-      <Outlet />
+      <Outlet context={{ isLoggedIn, setIsLoggedIn }} />
     </div>
   );
 };
