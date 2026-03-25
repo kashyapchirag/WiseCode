@@ -36,8 +36,8 @@ const ProblemFilter = ({ difficulty, setDifficulty }) => {
       </div>
       <div className="flex w-full justify-between items-center">
         <span className="w-140 dark:text-neutral-500 text-sm dark:selection:bg-cyan-400/20">
-          Master JavaScript fundamentals through deliberate practice. Extreme
-          minimalism, functional precision.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio,
+          quidem?
         </span>
         <div className="completionStatus font-mono flex p-3 w-50 dark:selection:bg-cyan-400/20 rounded-lg bg-green-50 border border-green-200 dark:border-neutral-800 dark:bg-neutral-900 items-center justify-between">
           <span className="dark:text-neutral-400 ">COMPLETION STATUS</span>

@@ -65,15 +65,21 @@ const ProblemSetNavbar = () => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              {/* <DropdownMenuItem>
+              {/* Future: More options in User menu when user logs in and can see his options example-Profile,Settings,etc */}
+
+              <DropdownMenuItem
+                title="Coming soon..."
+                // disabled={true}
+                className={"cursor-not-allowed"}
+              >
                 <UserIcon />
                 Profile
               </DropdownMenuItem>
 
-              <DropdownMenuItem>
+              {/* <DropdownMenuItem>
                 <SettingsIcon />
                 Settings
-              </DropdownMenuItem> */}
+              </DropdownMenuItem>  */}
 
               <DropdownMenuSeparator />
 

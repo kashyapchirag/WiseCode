@@ -76,6 +76,16 @@ const CodeEditor = ({
     return () => observer.disconnect();
   }, []);
 
+  const [editorThemeIsActive, setEditorThemeIsActive] = useState(false);
+
+  let editorTheme = null;
+
+  const theme = editorThemeIsActive
+    ? editorTheme
+    : isDark
+      ? tokyoNight
+      : githubLight;
+
   const [open, setOpen] = useState(false);
 
   return (
@@ -147,12 +157,13 @@ const CodeEditor = ({
 
       {/* editor */}
       <CodeMirror
+        key={isDark}
         value={code}
         onChange={(val) => {
           setCode(val);
         }}
         height="100%"
-        theme={isDark ? tokyoNight : githubLight}
+        theme={theme}
         extensions={[langExtensions[language]]}
         basicSetup={{
           lineNumbers: true,
@@ -161,7 +172,7 @@ const CodeEditor = ({
           autocompletion: true,
           tabSize: 2,
         }}
-        className="flex-1 rounded-xl overflow-y-auto "
+        className="flex-1 overflow-y-auto "
       />
 
       <div className="bottom flex justify-end gap-2 bg-transparent px-1 py-1 w-full h-10 ">

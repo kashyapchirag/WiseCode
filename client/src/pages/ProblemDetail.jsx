@@ -1,6 +1,6 @@
 import { getProblemBySlug } from "@/api/problemApi";
 import React, { useEffect, useState } from "react";
-import { useOutletContext, useParams } from "react-router-dom";
+import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { Group, Panel, Separator } from "react-resizable-panels";
 import { cn } from "@/utils/cn";
 import CodeEditor from "@/components/editor/CodeEditor";
@@ -9,6 +9,8 @@ import TestCasePanel from "@/components/panels/TestCasePanel";
 import SubmitPanel from "@/components/panels/SubmitPanel";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
+import { ArrowLeft, ChevronLeft, CornerUpLeft, Moon, Sun } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const ProblemDetail = () => {
   const { slug } = useParams();
@@ -48,29 +50,6 @@ const ProblemDetail = () => {
   const onRun = async () => {
     setLoading(true);
     setPanelView("TestCase");
-    // setTimeout(() => {
-    //   setResults([
-    //     {
-    //       input: "[2,7,11,15]\n9",
-    //       expectedOutput: "[0,1]",
-    //       actualOutput: "[0,1]",
-    //       passed: true,
-    //       status: "Accepted",
-    //       stderr: null,
-    //       compileOutput: null,
-    //     },
-    //     {
-    //       input: "[3,2,4]\n6",
-    //       expectedOutput: "[1,2]",
-    //       actualOutput: "[2,1]", // wrong on purpose to test failed case
-    //       passed: false,
-    //       status: "Wrong Answer",
-    //       stderr: null,
-    //       compileOutput: null,
-    //     },
-    //   ]);
-    //   setLoading(false);
-    // }, 2000);
     try {
       const res = await axios.post(
         "/api/run",
@@ -91,122 +70,6 @@ const ProblemDetail = () => {
   const onSubmit = async () => {
     setLoading(true);
     setPanelView("Submit");
-    // setTimeout(() => {
-    //   setResults([
-    //     {
-    //       input: "[2,7,11,15]\n9",
-    //       expectedOutput: "[0,1]",
-    //       actualOutput: "[0,1]",
-    //       passed: true,
-    //       status: "Accepted",
-    //       stderr: null,
-    //       compileOutput: null,
-    //       time: "0.043",
-    //       memory: 9216,
-    //     },
-    //     {
-    //       input: "[3,2,4]\n6",
-    //       expectedOutput: "[1,2]",
-    //       actualOutput: "[1,2]",
-    //       passed: true,
-    //       status: "Accepted",
-    //       stderr: null,
-    //       compileOutput: null,
-    //       time: "0.038",
-    //       memory: 9100,
-    //     },
-    //     {
-    //       input: "[3,3]\n6",
-    //       expectedOutput: "[0,1]",
-    //       actualOutput: "[1,0]", // wrong order
-    //       passed: false,
-    //       status: "Wrong Answer",
-    //       stderr: null,
-    //       compileOutput: null,
-    //       time: "0.041",
-    //       memory: 9200,
-    //     },
-    //     {
-    //       input: "[1,2,3,4,5]\n9",
-    //       expectedOutput: "[3,4]",
-    //       actualOutput: "[3,4]",
-    //       passed: true,
-    //       status: "Accepted",
-    //       stderr: null,
-    //       compileOutput: null,
-    //       time: "0.045",
-    //       memory: 9300,
-    //     },
-    //     {
-    //       input: "[0,4,3,0]\n0",
-    //       expectedOutput: "[0,3]",
-    //       actualOutput: "[0,3]",
-    //       passed: true,
-    //       status: "Accepted",
-    //       stderr: null,
-    //       compileOutput: null,
-    //       time: "0.039",
-    //       memory: 9150,
-    //     },
-    //     {
-    //       input: "[-1,-2,-3,-4,-5]\n-8",
-    //       expectedOutput: "[2,4]",
-    //       actualOutput: null, // crashed
-    //       passed: false,
-    //       status: "Runtime Error (NZEC)",
-    //       stderr: "TypeError: Cannot read properties of undefined",
-    //       compileOutput: null,
-    //       time: null,
-    //       memory: null,
-    //     },
-    //     {
-    //       input: "[1,5,3,7]\n8",
-    //       expectedOutput: "[1,3]",
-    //       actualOutput: "[1,3]",
-    //       passed: true,
-    //       status: "Accepted",
-    //       stderr: null,
-    //       compileOutput: null,
-    //       time: "0.051",
-    //       memory: 9400,
-    //     },
-    //     {
-    //       input: "[2,5,5,11]\n10",
-    //       expectedOutput: "[1,2]",
-    //       actualOutput: "[1,2]",
-    //       passed: true,
-    //       status: "Accepted",
-    //       stderr: null,
-    //       compileOutput: null,
-    //       time: "0.047",
-    //       memory: 9250,
-    //     },
-    //     {
-    //       input: "[1,3,4,2]\n6",
-    //       expectedOutput: "[2,3]",
-    //       actualOutput: "[3,2]", // wrong order
-    //       passed: false,
-    //       status: "Wrong Answer",
-    //       stderr: null,
-    //       compileOutput: null,
-    //       time: "0.044",
-    //       memory: 9180,
-    //     },
-    //     {
-    //       input: "[0,1]\n1",
-    //       expectedOutput: "[0,1]",
-    //       actualOutput: "[0,1]",
-    //       passed: true,
-    //       status: "Accepted",
-    //       stderr: null,
-    //       compileOutput: null,
-    //       time: "0.036",
-    //       memory: 9050,
-    //     },
-    //   ]);
-    //   setLoading(false);
-    // }, 2000);
-
     try {
       const res = await axios.post(
         "/api/submit",
@@ -225,18 +88,66 @@ const ProblemDetail = () => {
     }
   };
 
+  //   to check if darkmode is toggled on or not
+  const [isDark, setIsDark] = useState(
+    document.documentElement.classList.contains("dark"),
+  );
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setIsDark(document.documentElement.classList.contains("dark"));
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+    return () => observer.disconnect();
+  }, []);
+
+  const navigate = useNavigate();
+
   return (
     <div className="w-full h-screen bg-[#fbf9f4] dark:bg-neutral-950 text-black dark:text-white flex flex-col">
       {/* navbar */}
-      <div className="h-12 border-b w-full border-neutral-200 dark:border-neutral-800 flex items-center px-4">
-        <span
+      <div className="h-12 border-b w-full border-neutral-200 dark:border-neutral-800 flex items-center gap-4 px-4">
+        <Button
           onClick={() => {
-            document.documentElement.classList.toggle("dark");
+            navigate(-1);
           }}
-          className="font-mono font-bold"
+          variant="outline"
         >
-          WiseCode
-        </span>
+          <ArrowLeft />
+        </Button>
+        <span className="font-mono font-bold">WiseCode</span>
+
+        <button
+          onClick={() => {
+            const newTheme = !isDark;
+            document.documentElement.classList.toggle("dark", newTheme);
+            localStorage.setItem("theme", newTheme ? "dark" : "light");
+          }}
+          className="group relative flex h-9 w-9 items-center justify-center rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur transition-all duration-300 hover:scale-105 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+        >
+          {/* Icon */}
+          <span className="relative flex items-center justify-center">
+            <Sun
+              size={16}
+              className={`absolute transition-all duration-300 ${
+                isDark
+                  ? "rotate-90 scale-0 opacity-0"
+                  : "rotate-0 scale-100 opacity-100 text-yellow-500"
+              }`}
+            />
+            <Moon
+              size={16}
+              className={`absolute transition-all duration-300 ${
+                isDark
+                  ? "rotate-0 scale-100 opacity-100 text-blue-400"
+                  : "-rotate-90 scale-0 opacity-0"
+              }`}
+            />
+          </span>
+        </button>
       </div>
 
       {/* split plane */}
