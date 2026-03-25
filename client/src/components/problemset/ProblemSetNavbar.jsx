@@ -55,9 +55,6 @@ const ProblemSetNavbar = () => {
   return (
     <motion.nav className="flex justify-between items-center py-10 dark:selection:bg-cyan-400/20">
       <span
-        onClick={() => {
-          document.documentElement.classList.toggle("dark");
-        }}
         className="cursor-pointer text-2xl font-mono"
       >
         WiseCode

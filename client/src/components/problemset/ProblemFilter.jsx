@@ -15,9 +15,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const ProblemFilter = ({ difficulty, setDifficulty }) => {
+const ProblemFilter = ({ difficulty, setDifficulty, completion }) => {
   //dummy replace by state later
-  const completion = 10;
 
   const [open, setOpen] = useState(false);
 
@@ -39,7 +38,7 @@ const ProblemFilter = ({ difficulty, setDifficulty }) => {
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio,
           quidem?
         </span>
-        <div className="completionStatus font-mono flex p-3 w-50 dark:selection:bg-cyan-400/20 rounded-lg bg-green-50 border border-green-200 dark:border-neutral-800 dark:bg-neutral-900 items-center justify-between">
+        <div className="completionStatus text-[12px] font-mono flex p-3 w-50 dark:selection:bg-cyan-400/20 rounded-lg bg-green-50 border border-green-200 dark:border-neutral-800 dark:bg-neutral-900 items-center justify-between">
           <span className="dark:text-neutral-400 ">COMPLETION STATUS</span>
           <span
             className={cn(

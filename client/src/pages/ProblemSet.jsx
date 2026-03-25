@@ -3,10 +3,15 @@ import ProblemSetNavbar from "../components/problemset/ProblemSetNavbar";
 import ProblemFilter from "../components/problemset/ProblemFilter";
 import ProblemTable from "@/components/problemset/ProblemTable";
 import { easeInOut, motion } from "motion/react";
-import { getProblems } from "@/api/problemApi";
+import { getCompletionPercentage, getProblems } from "@/api/problemApi";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Loader2 } from "lucide-react";
 
 const ProblemSet = () => {
+  const [completion, setCompletion] = useState(
+    <Loader2 className="inline mr-2 animate-spin" size={12} />,
+  );
+
   const toggleDark = () => {
     document.documentElement.classList.toggle("dark");
   };
@@ -26,9 +31,24 @@ const ProblemSet = () => {
       setLoading(false);
     }
   };
+  const fetchCompletionPercentage = async () => {
+    try {
+      const data = await getCompletionPercentage();
+      setCompletion(data.completion);
+    } catch (err) {
+      setCompletion(0);
+      console.log("error while fetching completion percentage", err.message);
+    }
+  };
 
   useEffect(() => {
+    if (localStorage.getItem("theme") === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
     fetchProblems();
+    fetchCompletionPercentage();
   }, []);
 
   return (
@@ -39,7 +59,11 @@ const ProblemSet = () => {
       className="mx-auto max-w-[75vw] min-h-screen font-mono bg-[#fbf9f4] dark:bg-neutral-950 text-black dark:text-white"
     >
       <ProblemSetNavbar />
-      <ProblemFilter difficulty={difficulty} setDifficulty={setDifficulty} />
+      <ProblemFilter
+        completion={completion}
+        difficulty={difficulty}
+        setDifficulty={setDifficulty}
+      />
       {loading ? (
         <div className="w-full mt-6 flex flex-col gap-0">
           {Array.from({ length: 8 }).map((_, i) => (

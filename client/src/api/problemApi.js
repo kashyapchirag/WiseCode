@@ -6,6 +6,11 @@ export const getProblems = async () => {
     return res.data;
 }
 
+export const getCompletionPercentage = async () => {
+    const res = await api.get('/problems/completion');
+    return res.data;
+}
+
 export const getProblemBySlug = async (slug) => {
     const res = await api.get(`/problems/${slug}`);
     return res.data;
