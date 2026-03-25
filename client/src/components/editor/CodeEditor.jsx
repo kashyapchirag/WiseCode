@@ -187,7 +187,8 @@ const CodeEditor = ({
             You need to{" "}
             <span className="">
               <NavLink
-                className={"text-neutral-300 hover:text-white"}
+                className="font-medium text-blue-700 hover:text-blue-800 
+    dark:text-neutral-300 dark:hover:text-white transition-colors"
                 to={"/login"}
               >
                 Log in / Sign up
