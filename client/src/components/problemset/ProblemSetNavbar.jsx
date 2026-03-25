@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { toast } from "sonner";
-import { LogIn, User } from "lucide-react";
+import { LogIn, Moon, Sun, User } from "lucide-react";
 import { LogOut } from "lucide-react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import axios from "axios";
@@ -19,6 +19,7 @@ import {
   SettingsIcon,
   UserIcon,
 } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const ProblemSetNavbar = () => {
   const navigate = useNavigate();
@@ -37,6 +38,20 @@ const ProblemSetNavbar = () => {
       toast.error(err.response?.data?.message || "Something went wrong");
     }
   };
+  const [isDark, setIsDark] = useState(
+    document.documentElement.classList.contains("dark"),
+  );
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setIsDark(document.documentElement.classList.contains("dark"));
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+    return () => observer.disconnect();
+  }, []);
   return (
     <motion.nav className="flex justify-between items-center py-10 dark:selection:bg-cyan-400/20">
       <span
@@ -57,7 +72,7 @@ const ProblemSetNavbar = () => {
             <DropdownMenuTrigger asChild>
               <Button
                 className={
-                  "px-4 py-5 rounded-lg border border-violet-500/20 bg-violet-500/5 text-neutral-400 text-sm font-medium hover:bg-violet-500/10 hover:border-neutral-600 transition-all duration-200 cursor-pointer"
+                  "px-4 py-5 rounded-lg border border-violet-500/30 bg-violet-500/5 text-neutral-500 text-sm font-medium hover:bg-violet-500/10 hover:border-violet-500/40 transition-all duration-200 cursor-pointer"
                 }
                 variant="outline"
               >
@@ -74,6 +89,43 @@ const ProblemSetNavbar = () => {
               >
                 <UserIcon />
                 Profile
+              </DropdownMenuItem>
+
+              <DropdownMenuItem
+                onClick={(e) => {
+                  e.preventDefault();
+                  const newTheme = !isDark;
+                  document.documentElement.classList.toggle("dark", newTheme);
+                  localStorage.setItem("theme", newTheme ? "dark" : "light");
+                }}
+                className={"py-2"}
+              >
+                <button className="group relative flex min-w-4.25 items-center justify-center transition-all duration-300 hover:scale-105 hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer">
+                  {/* Icon */}
+                  <span className="relative flex items-center justify-center">
+                    <Sun
+                      size={12}
+                      className={`absolute transition-all duration-300 ${
+                        isDark
+                          ? "rotate-0 scale-100 opacity-100 text-yellow-500"
+                          : "rotate-90 scale-0 opacity-0"
+                      }`}
+                    />
+                    <Moon
+                      size={12}
+                      className={`absolute transition-all duration-300 ${
+                        isDark
+                          ? "-rotate-90 scale-0 opacity-0"
+                          : "rotate-0 scale-100 opacity-100 text-blue-400"
+                      }`}
+                    />
+                  </span>
+                </button>
+                <span
+                  className={`transition-all duration-300 ${isDark ? "text-yellow-500" : "text-blue-400"}`}
+                >
+                  {isDark ? "Light Mode" : "Dark Mode"}
+                </span>
               </DropdownMenuItem>
 
               {/* <DropdownMenuItem>

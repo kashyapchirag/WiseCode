@@ -1,12 +1,18 @@
 import SoftAurora from "@/components/ui/SoftAurora";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/utils/cn";
 import axios from "axios";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const AuthPage = () => {
+  useEffect(() => {
+    document.documentElement.classList.add("dark");
+  }, []);
+
   const navigate = useNavigate();
   const [currentTab, setCurrentTab] = useState(
     location.pathname === "/register" ? "Sign up" : "Sign in",
@@ -286,7 +292,7 @@ const AuthPage = () => {
   };
 
   return (
-    <div className="relative font-inter text-sm flex justify-center bg-[#0a0a0a] items-center h-screen">
+    <div className="relative font-inter text-sm flex p-10  justify-center bg-[#0a0a0a] items-center h-screen">
       {/* background shader */}
       <div className="absolute inset-0 w-full h-screen">
         <SoftAurora
@@ -297,6 +303,20 @@ const AuthPage = () => {
           color2="#4f46e5"
           enableMouseInteraction={false}
         />
+      </div>
+
+      <div className="back absolute top-0 left-0 p-5">
+        <Button
+          onClick={() => {
+            navigate(-1);
+          }}
+          variant="outline"
+          className={
+            "cursor-pointer h-9 w-9 items-center justify-center rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur transition-all duration-300 hover:scale-105 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+          }
+        >
+          <ArrowLeft />
+        </Button>
       </div>
 
       <motion.div

@@ -115,6 +115,9 @@ const ProblemDetail = () => {
             navigate(-1);
           }}
           variant="outline"
+          className={
+            "cursor-pointer h-9 w-9 items-center justify-center rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur transition-all duration-300 hover:scale-105 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+          }
         >
           <ArrowLeft />
         </Button>
@@ -126,7 +129,7 @@ const ProblemDetail = () => {
             document.documentElement.classList.toggle("dark", newTheme);
             localStorage.setItem("theme", newTheme ? "dark" : "light");
           }}
-          className="group relative flex h-9 w-9 items-center justify-center rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur transition-all duration-300 hover:scale-105 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+          className="group relative flex h-9 w-9 items-center justify-center rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur transition-all duration-300 hover:scale-105 hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer"
         >
           {/* Icon */}
           <span className="relative flex items-center justify-center">
@@ -134,16 +137,16 @@ const ProblemDetail = () => {
               size={16}
               className={`absolute transition-all duration-300 ${
                 isDark
-                  ? "rotate-90 scale-0 opacity-0"
-                  : "rotate-0 scale-100 opacity-100 text-yellow-500"
+                  ? "rotate-0 scale-100 opacity-100 text-yellow-500"
+                  : "rotate-90 scale-0 opacity-0"
               }`}
             />
             <Moon
               size={16}
               className={`absolute transition-all duration-300 ${
                 isDark
-                  ? "rotate-0 scale-100 opacity-100 text-blue-400"
-                  : "-rotate-90 scale-0 opacity-0"
+                  ? "-rotate-90 scale-0 opacity-0"
+                  : "rotate-0 scale-100 opacity-100 text-blue-400"
               }`}
             />
           </span>
