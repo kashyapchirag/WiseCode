@@ -16,7 +16,7 @@ const MainLayout = () => {
     checkAuth();
   }, []);
   return (
-    <div className="bg-[#fbf9f4] dark:bg-neutral-950">
+    <div className="bg-[#fbf9f4] dark:bg-neutral-950 dark:selection:bg-white dark:selection:text-black">
       <Outlet context={{ isLoggedIn, setIsLoggedIn }} />
     </div>
   );
