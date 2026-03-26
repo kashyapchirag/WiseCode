@@ -28,8 +28,6 @@ const ProblemSet = () => {
       setProblems(data);
     } catch (err) {
       console.log("error while fetching problems", err.message);
-    } finally {
-      setLoading(false);
     }
   };
   const fetchCompletionProgress = async () => {
@@ -40,6 +38,8 @@ const ProblemSet = () => {
     } catch (err) {
       setCompletion(0);
       console.log("error while fetching completion percentage", err.message);
+    } finally {
+      setLoading(false);
     }
   };
 

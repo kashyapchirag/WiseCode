@@ -5,7 +5,7 @@ import Submission from "../models/Submission.js";
 export const getProblemSet = async (req, res) => {
     try {
         // problem list
-        const problems = await Problem.find();
+        const problems = await Problem.find().select("problemNumber title slug difficulty");
         res.status(200).json(problems);
 
     } catch (err) {
