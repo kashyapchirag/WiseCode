@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken'
-import cookieParser from 'cookie-parser'
 
 export const protect = async (req, res, next) => {
     try {
@@ -15,4 +14,17 @@ export const protect = async (req, res, next) => {
     } catch (err) {
         return res.status(401).json({ message: "Invalid Token" })
     }
+}
+
+export const optionalAuth = (req, res, next) => {
+    try {
+        const token = req.cookies.token;
+        if (token) {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET)
+            req.user = decoded;
+        }
+    } catch (err) {
+        // intentionally empty ✅
+    }
+    next();
 }

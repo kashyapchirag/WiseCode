@@ -43,7 +43,7 @@ const CodeEditor = ({
   isLoggedIn,
 }) => {
   useEffect(() => {
-    if (starterCode) {
+    if (starterCode && code === "") {
       setCode(starterCode.java || ""); // load when data arrives
     }
   }, [starterCode]);

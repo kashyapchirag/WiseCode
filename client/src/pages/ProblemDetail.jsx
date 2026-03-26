@@ -25,8 +25,15 @@ const ProblemDetail = () => {
 
   useEffect(() => {
     const getProblemDetail = async () => {
-      const data = await getProblemBySlug(slug);
-      setProblem(data);
+      try {
+        const data = await getProblemBySlug(slug);
+        setProblem(data.problem);
+        if (data.userCode) {
+          setCode(data.userCode);
+        }
+      } catch (err) {
+        console.log("error aagya", err.message);
+      }
     };
 
     getProblemDetail();

@@ -24,8 +24,6 @@ export const getCompletion = async (req, res) => {
         const totalProblems = await Problem.find();
         const completion = Math.round((acceptedProblems.length / totalProblems.length) * 1000) / 10;
 
-        // show checkmark for solved
-
         res.status(200).json({ completion, acceptedProblems })
 
     } catch (err) {
@@ -35,14 +33,23 @@ export const getCompletion = async (req, res) => {
 export const getProblemBySlug = async (req, res) => {
     try {
         const problem = await Problem.findOne({ slug: req.params.slug })
+        let userCode = null;
         if (!problem) {
-            res.status(404).json({ message: 'Problem not found' });
+            return res.status(404).json({ message: 'Problem not found' });
         }
-        res.status(200).json(problem);
+
+        if (req.user) {
+            const acceptedProblem = await Submission.findOne({ problemId: problem._id, userId: req.user.userId, status: "Accepted" }).sort({ createdAt: -1 })
+
+            userCode = acceptedProblem?.code || null;
+        }
+
+        res.status(200).json({ problem, userCode });
     } catch (err) {
         res.status(500).json({ message: 'Server Error', error: err.message })
     }
 }
+
 const languageID = {
     Java: 62,
     Cpp: 54,
