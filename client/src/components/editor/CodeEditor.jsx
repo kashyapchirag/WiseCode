@@ -37,6 +37,18 @@ import { IconReload } from "@tabler/icons-react";
 
 import EditorSettingsModal from "../modals/EditorSettingsModal";
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+
 const langExtensions = {
   Javascript: javascript(),
   Python: python(),
@@ -198,28 +210,48 @@ const CodeEditor = ({
         </DropdownMenu>
 
         <div className="options flex gap-2">
-          {/* Reload */}
-          <button
-            onClick={() => {
-              setCode(starterCode?.[language.toLowerCase()]);
-              localStorage.setItem(
-                `code-${problemNumber}-${language}`,
-                starterCode?.[language.toLowerCase()],
-              );
-            }}
-            className="group relative flex h-8 w-8 items-center justify-center rounded-lg 
+          {/* Reset */}
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <button
+                className="group relative flex h-8 w-8 items-center justify-center rounded-lg 
     border border-neutral-200 dark:border-neutral-800 
     bg-white/70 dark:bg-neutral-900/70 backdrop-blur
     transition-all duration-300 
     hover:scale-105 hover:bg-neutral-100 dark:hover:bg-neutral-800
     cursor-pointer"
-          >
-            <IconReload
-              size={16}
-              className="text-neutral-600 dark:text-neutral-400 
+              >
+                <IconReload
+                  size={16}
+                  className="text-neutral-600 dark:text-neutral-400 
       group-hover:text-black dark:group-hover:text-white transition-colors"
-            />
-          </button>
+                />
+              </button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Your current code will be discarded and reset to the starter
+                  code.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction
+                  onClick={() => {
+                    setCode(starterCode?.[language.toLowerCase()]);
+                    localStorage.setItem(
+                      `code-${problemNumber}-${language}`,
+                      starterCode?.[language.toLowerCase()],
+                    );
+                  }}
+                >
+                  Reset
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
 
           {/* Settings */}
           <button

@@ -30,6 +30,7 @@ const AuthPage = () => {
     value,
     onChange,
     placeholder,
+    handleSubmit,
   }) => {
     return (
       <div className="flex flex-col gap-1.5">
@@ -44,6 +45,11 @@ const AuthPage = () => {
           type={type}
           name={name}
           value={value}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleSubmit();
+            }
+          }}
           onChange={onChange}
           placeholder={placeholder}
           className="w-full bg-[#0a0a0a] border border-white/10 rounded-lg px-3 py-2 text-sm text-neutral-300 placeholder:text-neutral-600 outline-none focus:border-violet-500/50 focus:ring-1 focus:ring-violet-500/20 transition-all"
@@ -116,6 +122,7 @@ const AuthPage = () => {
             value={form.email}
             onChange={handleChange}
             placeholder={"you@example.com"}
+            handleSubmit={handleSubmit}
           />
           {errors.email && (
             <p className="text-xs px-2 text-red-400">{errors.email}</p>
@@ -128,6 +135,7 @@ const AuthPage = () => {
             value={form.password}
             onChange={handleChange}
             placeholder={"••••••••"}
+            handleSubmit={handleSubmit}
           />
           {errors.password && (
             <p className="text-xs px-2 text-red-400">{errors.password}</p>
@@ -233,6 +241,7 @@ const AuthPage = () => {
             value={form.email}
             onChange={handleChange}
             placeholder={"you@example.com"}
+            handleSubmit={handleSubmit}
           />
           {errors.email && (
             <p className="text-red-400 text-xs mt-1 px-1">{errors.email}</p>
@@ -245,6 +254,7 @@ const AuthPage = () => {
             value={form.password}
             onChange={handleChange}
             placeholder={"Min. 8 characters"}
+            handleSubmit={handleSubmit}
           />
           {errors.password && (
             <p className="text-red-400 text-xs mt-1 px-1">{errors.password}</p>

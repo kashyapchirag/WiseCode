@@ -58,7 +58,7 @@ const ProblemSet = () => {
       initial={{ filter: "blur(10px)" }}
       animate={{ filter: "blur(0px)" }}
       transition={{ duration: 0.3, ease: easeInOut }}
-      className="mx-auto max-w-[75vw] min-h-screen font-mono bg-[#fbf9f4] dark:bg-neutral-950 text-black dark:text-white"
+      className="mx-auto max-w-[90vw] sm:max-w-[75vw] min-h-screen font-mono bg-[#fbf9f4] dark:bg-neutral-950 text-black dark:text-white"
     >
       <ProblemSetNavbar />
       <ProblemFilter
