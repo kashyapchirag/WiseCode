@@ -34,11 +34,11 @@ export const signIn = async (req, res) => {
             process.env.JWT_SECRET,
             { expiresIn: "1d" }
         )
-        res.cookie("token", token, {
-            httpOnly: true,
-            secure: true,
-            sameSite: "None",
-        });
+        // res.cookie("token", token, {
+        //     httpOnly: true,
+        //     secure: true,
+        //     sameSite: "None",
+        // });
         return res.status(200).json({ message: "Logged In Successfully", token })
 
     } catch (err) {

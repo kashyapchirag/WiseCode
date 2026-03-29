@@ -3,7 +3,8 @@ import jwt from 'jsonwebtoken'
 export const protect = async (req, res, next) => {
     try {
 
-        const token = req.cookies.token;
+        // const token = req.cookies.token;
+        const token = req.headers.authorization?.split(" ")[1];
         if (!token) {
             return res.status(401).json({ message: "Not Authorized" })
         }
@@ -18,13 +19,13 @@ export const protect = async (req, res, next) => {
 
 export const optionalAuth = (req, res, next) => {
     try {
-        const token = req.cookies.token;
+        const token = req.headers.authorization?.split(" ")[1];
         if (token) {
-            const decoded = jwt.verify(token, process.env.JWT_SECRET)
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
             req.user = decoded;
         }
     } catch (err) {
-        // intentionally empty ✅
+        // ignore errors
     }
     next();
-}
+};

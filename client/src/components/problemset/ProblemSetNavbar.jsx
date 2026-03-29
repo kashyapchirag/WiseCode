@@ -26,14 +26,10 @@ const ProblemSetNavbar = () => {
   const { isLoggedIn, setIsLoggedIn } = useOutletContext();
   const handleLogOut = async () => {
     try {
-      const res = await api.post(
-        "/api/signout",
-        {},
-        { withCredentials: true },
-      );
+      localStorage.removeItem("token")
       setIsLoggedIn(false);
       navigate("/");
-      toast.success(res.data.message);
+      toast.success("Logged Out Successfully");
     } catch (err) {
       toast.error(err.response?.data?.message || "Something went wrong");
     }
