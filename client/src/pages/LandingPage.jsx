@@ -9,6 +9,7 @@ import Footer from "@/components/landing/Footer";
 const LandingPage = () => {
   useEffect(() => {
     document.documentElement.classList.add("dark");
+    localStorage.setItem("theme", "dark");
   }, []);
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white selection:bg-white selection:text-black">
