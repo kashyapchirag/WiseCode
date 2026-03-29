@@ -96,7 +96,6 @@ const AuthPage = () => {
           { email: form.email, password: form.password },
           { withCredentials: true },
         );
-        console.log(res.data.token);
 
         navigate("/problems");
         toast.success(res.data.message);
