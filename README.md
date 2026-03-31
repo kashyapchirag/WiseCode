@@ -34,6 +34,7 @@
 ## Table of Contents
 
 - [Overview](#overview)
+- [Demo](#demo)
 - [Features](#features)
 - [Project Structure](#project-structure)
 - [Getting Started](#getting-started)
@@ -59,6 +60,12 @@ This project delivers a complete, self-hostable coding challenge environment. Th
 - 📊 **Progress Tracking:** Tracks solved problems per user with completion percentage and per-language accepted code history.
 - 🎨 **Polished UI:** Resizable split-pane editor, multiple CodeMirror themes, dark/light mode, and smooth animated transitions via Framer Motion.
 - 📚 **15 Curated Problems:** Ranging from Basic to Hard across Arrays, Trees, Graphs, DP, Sliding Window, Backtracking, and more.
+
+---
+
+## Demo
+
+https://github.com/user-attachments/assets/c1040589-311f-429a-b51c-945a0d6205e8
 
 ---
 
