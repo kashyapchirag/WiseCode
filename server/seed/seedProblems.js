@@ -1650,6 +1650,107 @@ public class Main {
 }`,
         },
     },
+    // ─────────────────────────────────────────────
+    // 16. POKÉMON HP AFTER BATTLE
+    // ─────────────────────────────────────────────
+    {
+        problemNumber: 16,
+        title: "Pokémon HP After Battle",
+        slug: "pokemon-hp-after-battle",
+        difficulty: "Easy",
+        tags: ["Array", "Simulation"],
+        description:
+            "A Pokémon starts with hp health points. It takes a series of hits, where each hit deals damage[i] points. However, if the Pokémon's HP would drop to 0 or below, it faints immediately and takes no further damage. Return the Pokémon's remaining HP after all hits (minimum 0).",
+        examples: [
+            { input: "hp = 100\ndamage = [20, 30, 10]", output: "40", explanation: "100 - 20 - 30 - 10 = 40 HP remaining" },
+            { input: "hp = 50\ndamage = [30, 40, 10]", output: "0", explanation: "50 - 30 = 20, then 20 - 40 = -20 which is below 0, so it faints. Output is 0." },
+        ],
+        constraints: [
+            "1 <= hp <= 1000",
+            "1 <= damage.length <= 100",
+            "1 <= damage[i] <= 200",
+        ],
+        testCases: [
+            { input: "100\n[20,30,10]", expectedOutput: "40" },
+            { input: "50\n[30,40,10]", expectedOutput: "0" },
+            { input: "200\n[50,50,50,50]", expectedOutput: "0" },
+            { input: "10\n[1,1,1]", expectedOutput: "7" },
+            { input: "1\n[1]", expectedOutput: "0" },
+            { input: "1000\n[100]", expectedOutput: "900" },
+            { input: "75\n[25,25,25]", expectedOutput: "0" },
+            { input: "80\n[10,20,5]", expectedOutput: "45" },
+            { input: "300\n[99,99,99]", expectedOutput: "3" },
+            { input: "60\n[61]", expectedOutput: "0" },
+        ],
+        starterCode: {
+            javascript: `function hpAfterBattle(hp, damage) {
+  // your code here
+}
+
+/* DO NOT EDIT BELOW */
+const readline = require("readline");
+const rl = readline.createInterface({ input: process.stdin });
+let input = [];
+rl.on("line", (line) => input.push(line.trim()));
+rl.on("close", () => {
+  const hp = parseInt(input[0]);
+  const damage = JSON.parse(input[1]);
+  console.log(String(hpAfterBattle(hp, damage)));
+});`,
+
+            python: `def hp_after_battle(hp, damage):
+    # your code here
+    pass
+
+# DO NOT EDIT BELOW
+import sys, json
+lines = sys.stdin.read().split("\\n")
+hp = int(lines[0])
+damage = json.loads(lines[1])
+print(hp_after_battle(hp, damage))`,
+
+            cpp: `#include <bits/stdc++.h>
+using namespace std;
+
+int hpAfterBattle(int hp, vector<int>& damage) {
+    // your code here
+}
+
+/* DO NOT EDIT BELOW */
+int main() {
+    int hp; cin >> hp; cin.ignore();
+    string line; getline(cin, line);
+    line.erase(remove(line.begin(), line.end(), '['), line.end());
+    line.erase(remove(line.begin(), line.end(), ']'), line.end());
+    vector<int> damage;
+    stringstream ss(line); string tok;
+    while (getline(ss, tok, ',')) damage.push_back(stoi(tok));
+    cout << hpAfterBattle(hp, damage) << endl;
+    return 0;
+}`,
+
+            java: `import java.util.*;
+
+public class Main {
+    public static int hpAfterBattle(int hp, int[] damage) {
+        // your code here
+        return 0;
+    }
+
+    /* DO NOT EDIT BELOW */
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int hp = Integer.parseInt(sc.nextLine().trim());
+        String line = sc.nextLine().trim().replaceAll("[\\\\[\\\\]]", "");
+        String[] parts = line.split(",");
+        int[] damage = new int[parts.length];
+        for (int i = 0; i < parts.length; i++) damage[i] = Integer.parseInt(parts[i].trim());
+        System.out.println(hpAfterBattle(hp, damage));
+    }
+}`,
+        },
+    },
+
 ];
 
 const seed = async () => {
